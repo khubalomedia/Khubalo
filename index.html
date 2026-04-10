@@ -4,41 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BaloTV</title>
-
 <link rel="stylesheet" href="styles.css">
 <script src="https://www.youtube.com/iframe_api"></script>
 </head>
-
 <body>
-
 <header>
-<h1>BaloTV</h1>
+  <div class="logo">BaloTV</div>
+  <input type="text" placeholder="Search..." class="search-bar" />
 </header>
 
-
+<section class="hero">
+  <div id="player" class="main-player"></div>
+  <div class="hero-info">
+    <h2 id="videoTitle">Featured Video</h2>
+  </div>
+</section>
 
 <section class="rows">
+  <h3>Continue Watching</h3>
+  <div id="row-continue" class="row"></div>
 
-<h3>Continue Watching</h3>
-<div id="row-continue" class="row"></div>
+  <h3>Latest Uploads</h3>
+  <div id="row-latest" class="row"></div>
 
-<h3>Latest Uploads</h3>
-<div id="row-latest" class="row"></div>
+  <h3>Talk Shows</h3>
+  <div id="row-talk" class="row"></div>
 
-<h3>Talk Shows</h3>
-<div id="row-talk" class="row"></div>
+  <h3>Cartoons</h3>
+  <div id="row-cartoons" class="row"></div>
 
-<h3>Cartoons</h3>
-<div id="row-cartoons" class="row"></div>
+  <h3>Music Videos</h3>
+  <div id="row-musicvideos" class="row"></div>
 
-<h3>Music Videos</h3>
-<div id="row-musicvideos" class="row"></div>
-
-<h3>Music</h3>
-<div id="row-music" class="row"></div>
-
-
-
+  <h3>Music</h3>
+  <div id="row-music" class="row"></div>
 </section>
 
 <script src="app.js"></script>
