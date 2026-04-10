@@ -1,42 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Balo TV - Cartoons</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaloTV</title>
+
+<link rel="stylesheet" href="styles.css">
+<script src="https://www.youtube.com/iframe_api"></script>
 </head>
+
 <body>
-  <header>
-    <h1>📺 Balo TV</h1>
-    <nav>
-      <a href="#channel1">Cartoon Channel</a>
-    </nav>
-  </header>
 
-  <main>
-    <section id="channel1" class="channel">
-      <h2>Channel 1 - Cartoons</h2>
-      <div class="video-container">
-        <iframe 
-          id="cartoonPlayer"
-          width="100%" 
-          height="100%" 
-          src="https://www.youtube.com/embed/videoseries?list=PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix&autoplay=1&loop=1&playlist=PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix"
-          frameborder="0" 
-          allow="autoplay; encrypted-media; fullscreen" 
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="bio">
-        <h3>About This Channel</h3>
-        <p>This cartoon channel brings fun and laughter for kids of all ages! Enjoy a mix of animated content in an endless loop.</p>
-      </div>
-    </section>
-  </main>
+<header>
+<h1>BaloTV</h1>
+</header>
 
-  <footer>
-    <p>&copy; 2025 Balo TV. All rights reserved.</p>
-  </footer>
+<section class="hero">
+<div id="player"></div>
+<div class="hero-info">
+<h2 id="videoTitle">Loading...</h2>
+</div>
+</section>
+
+<section class="rows">
+<h3>Latest Uploads</h3>
+<div id="row1" class="row"></div>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>
