@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_BACKEND_PROXY_ENDPOINT";
+const API_KEY = "https://khubalo.onrender.com/";
 const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
 let player;
 
