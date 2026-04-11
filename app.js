@@ -1,10 +1,11 @@
 // ================= CONFIG =================
-const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y"; // <-- replace this
+const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y";
 const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
 
 let player;
+let allVideos = []; // 🔥 store all site videos for local search
 
-// Playlists
+// ================= PLAYLISTS =================
 const playlists = {
   talk: "PL8W_paC7-AOtTlt5kzJXexdirvM5HGIHf",
   cartoons: "PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix",
@@ -12,137 +13,197 @@ const playlists = {
   music: "PL8W_paC7-AOvTL0ZF6iSiZhYxpjV1uVGD"
 };
 
-// ================= YOUTUBE PLAYER =================
+// ================= PLAYER =================
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     height: "100%",
     width: "100%",
-    videoId: "",
-    playerVars: {
-      autoplay: 1,
-      controls: 1,
-      modestbranding: 1
-    }
+    playerVars: { autoplay: 1, rel: 0 }
   });
 
-  loadAll();
+  initApp();
 }
 
-// ================= FETCH HELPER =================
+// ================= INIT =================
+function initApp() {
+  loadAllContent();
+  setupSearch();
+  loadContinueWatching();
+}
+
+// ================= FETCH =================
 async function fetchAPI(url) {
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error("API request failed");
     return await res.json();
-  } catch (err) {
-    console.error("Fetch error:", err);
+  } catch {
     return { items: [] };
   }
 }
 
-// ================= LOADERS =================
-function loadAll() {
-  loadLatest();
-  loadPlaylist(playlists.talk, "row-talk");
-  loadPlaylist(playlists.cartoons, "row-cartoons");
-  loadPlaylist(playlists.musicvideos, "row-musicvideos");
-  loadPlaylist(playlists.music, "row-music");
-  loadContinueWatching();
+// ================= LOAD ALL =================
+async function loadAllContent() {
+  allVideos = [];
+
+  await loadLatest();
+  await loadPlaylist(playlists.talk, "row-talk");
+  await loadPlaylist(playlists.cartoons, "row-cartoons");
+  await loadPlaylist(playlists.musicvideos, "row-musicvideos");
+  await loadPlaylist(playlists.music, "row-music");
 }
 
-// 🔹 Latest Videos
+// ================= LATEST =================
 async function loadLatest() {
   const url =
-    `https://www.googleapis.com/youtube/v3/search` +
-    `?key=${API_KEY}` +
+    `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}` +
     `&channelId=${CHANNEL_ID}` +
-    `&part=snippet,id` +
-    `&order=date` +
-    `&maxResults=12`;
+    `&part=snippet,id&order=date&type=video&maxResults=10`;
 
   const data = await fetchAPI(url);
-  displayVideos(data.items, "row-latest");
+
+  const videos = data.items.map(v => ({
+    id: v.id.videoId,
+    title: v.snippet.title,
+    thumb: v.snippet.thumbnails.medium.url,
+    desc: v.snippet.description
+  }));
+
+  allVideos.push(...videos);
+
+  displayVideos(videos, "row-latest");
+
+  if (videos[0]) playVideo(videos[0]);
 }
 
-// 🔹 Playlist Videos
-async function loadPlaylist(playlistId, rowId) {
+// ================= PLAYLIST =================
+async function loadPlaylist(id, rowId) {
   const url =
-    `https://www.googleapis.com/youtube/v3/playlistItems` +
-    `?key=${API_KEY}` +
-    `&playlistId=${playlistId}` +
-    `&part=snippet` +
-    `&maxResults=12`;
+    `https://www.googleapis.com/youtube/v3/playlistItems?key=${API_KEY}` +
+    `&playlistId=${id}&part=snippet&maxResults=10`;
 
   const data = await fetchAPI(url);
-  displayVideos(data.items, rowId, true);
+
+  const videos = data.items.map(v => ({
+    id: v.snippet.resourceId.videoId,
+    title: v.snippet.title,
+    thumb: v.snippet.thumbnails.medium.url,
+    desc: v.snippet.description
+  }));
+
+  allVideos.push(...videos);
+
+  displayVideos(videos, rowId);
 }
 
-// ================= UI RENDER =================
-function displayVideos(videos, rowId, isPlaylist = false) {
+// ================= LOCAL SEARCH =================
+function setupSearch() {
+  const input = document.querySelector(".search-bar");
+
+  input.addEventListener("input", () => {
+    const query = input.value.toLowerCase();
+
+    if (!query) {
+      loadAllContent();
+      return;
+    }
+
+    const results = allVideos.filter(v =>
+      v.title.toLowerCase().includes(query)
+    );
+
+    clearRows();
+    createSearchRow();
+
+    displayVideos(results, "row-search");
+  });
+}
+
+// ================= DISPLAY =================
+function displayVideos(videos, rowId) {
   const row = document.getElementById(rowId);
   if (!row) return;
 
   row.innerHTML = "";
 
   videos.forEach(video => {
-    const videoId = isPlaylist
-      ? video.snippet?.resourceId?.videoId
-      : video.id?.videoId || video.id;
-
-    if (!videoId) return;
-
-    const thumbnail = video.snippet?.thumbnails?.medium?.url;
-    const title = video.snippet?.title;
-
     const card = document.createElement("div");
     card.classList.add("video-card");
 
     card.innerHTML = `
-      <img loading="lazy" src="${thumbnail}" alt="${title}">
+      <img src="${video.thumb}">
+      <div class="card-title">${video.title}</div>
     `;
 
-    card.onclick = () => playVideo(videoId, title);
+    // 🔥 CLICK PLAY
+    card.onclick = () => playVideo(video);
+
+    // 🔥 HOVER PREVIEW
+    let hoverTimeout;
+
+    card.onmouseenter = () => {
+      hoverTimeout = setTimeout(() => {
+        playVideo(video, true);
+      }, 800); // delay like Netflix
+    };
+
+    card.onmouseleave = () => {
+      clearTimeout(hoverTimeout);
+    };
 
     row.appendChild(card);
   });
 }
 
-// ================= PLAYER CONTROL =================
-function playVideo(videoId, title) {
+// ================= PLAYER =================
+function playVideo(video, isPreview = false) {
   if (!player) return;
 
-  player.loadVideoById(videoId);
-  player.unMute();
+  player.loadVideoById(video.id);
 
-  document.getElementById("videoTitle").innerText = title;
+  document.getElementById("videoTitle").innerText = video.title;
+  document.getElementById("videoDesc").innerText = video.desc;
 
-  // Save to Continue Watching
-  localStorage.setItem(
-    "lastVideo",
-    JSON.stringify({ id: videoId, title })
-  );
-
-  loadContinueWatching();
+  if (!isPreview) {
+    localStorage.setItem("lastVideo", JSON.stringify(video));
+    loadContinueWatching();
+  }
 }
 
-// ================= CONTINUE WATCHING =================
+// ================= UI HELPERS =================
+function clearRows() {
+  document.querySelectorAll(".row").forEach(r => r.innerHTML = "");
+}
+
+function createSearchRow() {
+  if (document.getElementById("row-search")) return;
+
+  const section = document.querySelector(".rows");
+
+  const title = document.createElement("h3");
+  title.innerText = "Search Results";
+
+  const row = document.createElement("div");
+  row.id = "row-search";
+  row.className = "row";
+
+  section.prepend(row);
+  section.prepend(title);
+}
+
+// ================= CONTINUE =================
 function loadContinueWatching() {
-  const data = JSON.parse(localStorage.getItem("lastVideo"));
-  if (!data) return;
+  const video = JSON.parse(localStorage.getItem("lastVideo"));
+  if (!video) return;
 
   const row = document.getElementById("row-continue");
-  if (!row) return;
-
   row.innerHTML = "";
 
   const card = document.createElement("div");
   card.classList.add("video-card");
 
-  card.innerHTML = `
-    <img src="https://img.youtube.com/vi/${data.id}/mqdefault.jpg">
-  `;
+  card.innerHTML = `<img src="https://img.youtube.com/vi/${video.id}/mqdefault.jpg">`;
 
-  card.onclick = () => playVideo(data.id, data.title);
+  card.onclick = () => playVideo(video);
 
   row.appendChild(card);
 }
