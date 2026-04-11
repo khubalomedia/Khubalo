@@ -1,69 +1,49 @@
-const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y";
+const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y"; // replace
 const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
+
 let player;
 
-const playlists = {
-  talk: "PL8W_paC7-AOtTlt5kzJXexdirvM5HGIHf",
-  cartoons: "PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix",
-  musicvideos: "PL8W_paC7-AOs-YVLrcN1rw_MhozUIoESZ",
-  music: "PL8W_paC7-AOvTL0ZF6iSiZhYxpjV1uVGD"
-};
-
+// YouTube API ready
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player("player", {
+  player = new YT.Player("g0xtSq2ZcQSQ9wx2", {
     height: "100%",
     width: "100%",
-    videoId: "",
+    videoId: "dQw4w9WgXcQ", // default video
   });
 
-  loadAll();
+  loadLatest();
 }
 
+// Fetch helper
 async function fetchAPI(url) {
   const res = await fetch(url);
   return res.json();
 }
 
-function loadAll() {
-  loadLatest();
-  loadPlaylist(playlists.talk, "row-talk");
-  loadPlaylist(playlists.cartoons, "row-cartoons");
-  loadPlaylist(playlists.musicvideos, "row-musicvideos");
-  loadPlaylist(playlists.music, "row-music");
-  loadPopular();
-  loadContinueWatching();
-}
-
+// Load latest videos from channel
 async function loadLatest() {
-  const url = `${API_KEY}/latest`;
+  const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`;
+  
   const data = await fetchAPI(url);
   displayVideos(data.items, "row-latest");
 }
 
-async function loadPlaylist(id, rowId) {
-  const url = `${API_KEY}/playlist?id=${id}`;
-  const data = await fetchAPI(url);
-  displayVideos(data.items, rowId, true);
-}
-
-async function loadPopular() {
-  const url = `${API_KEY}/popular`;
-  const data = await fetchAPI(url);
-  displayVideos(data.items, "row-popular");
-}
-
-function displayVideos(videos, rowId, isPlaylist = false) {
+// Display videos
+function displayVideos(videos, rowId) {
   const row = document.getElementById(rowId);
   row.innerHTML = "";
 
   videos.forEach(video => {
-    const videoId = isPlaylist
-      ? video.snippet.resourceId.videoId
-      : video.id.videoId || video.id;
+    if (!video.id.videoId) return;
+
+    const videoId = video.id.videoId;
 
     const card = document.createElement("div");
     card.classList.add("video-card");
-    card.innerHTML = `<img loading='lazy' src="${video.snippet.thumbnails.medium.url}">`;
+
+    card.innerHTML = `
+      <img src="${video.snippet.thumbnails.medium.url}">
+    `;
 
     card.onclick = () => {
       playVideo(videoId, video.snippet.title);
@@ -73,15 +53,18 @@ function displayVideos(videos, rowId, isPlaylist = false) {
   });
 }
 
+// Play video
 function playVideo(id, title) {
   player.loadVideoById(id);
-  player.unMute();
+
   document.getElementById("videoTitle").innerText = title;
 
   localStorage.setItem("lastVideo", JSON.stringify({ id, title }));
+
   loadContinueWatching();
 }
 
+// Continue watching
 function loadContinueWatching() {
   const data = JSON.parse(localStorage.getItem("lastVideo"));
   if (!data) return;
@@ -91,13 +74,14 @@ function loadContinueWatching() {
 
   const card = document.createElement("div");
   card.classList.add("video-card");
+
+  // FIXED (no undefined video object)
   card.innerHTML = `
-  <img src="${video.thumb}" alt="${video.title}">
-  <div class="card-info">
-    <h4>${video.title}</h4>
-    <p>${video.desc?.slice(0, 60) || ""}...</p>
-  </div>
-`;
+    <div class="card-info">
+      <h4>${data.title}</h4>
+      <p>Continue watching</p>
+    </div>
+  `;
 
   card.onclick = () => playVideo(data.id, data.title);
 
