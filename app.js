@@ -1,6 +1,5 @@
-// 🔹 Use your backend URL (NOT API KEY)
-const BASE_URL = "https://khubalo.onrender.com";
-
+const API_KEY = "YOUR_BACKEND_PROXY_ENDPOINT";
+const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
 let player;
 
 const playlists = {
@@ -21,14 +20,8 @@ function onYouTubeIframeAPIReady() {
 }
 
 async function fetchAPI(url) {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("API error");
-    return await res.json();
-  } catch (err) {
-    console.error("Fetch failed:", err);
-    return { items: [] }; // prevents crash
-  }
+  const res = await fetch(url);
+  return res.json();
 }
 
 function loadAll() {
@@ -42,27 +35,25 @@ function loadAll() {
 }
 
 async function loadLatest() {
-  const url = `${BASE_URL}/latest`;
+  const url = `${API_KEY}/latest`;
   const data = await fetchAPI(url);
   displayVideos(data.items, "row-latest");
 }
 
 async function loadPlaylist(id, rowId) {
-  const url = `${BASE_URL}/playlist?id=${id}`;
+  const url = `${API_KEY}/playlist?id=${id}`;
   const data = await fetchAPI(url);
   displayVideos(data.items, rowId, true);
 }
 
 async function loadPopular() {
-  const url = `${BASE_URL}/popular`;
+  const url = `${API_KEY}/popular`;
   const data = await fetchAPI(url);
   displayVideos(data.items, "row-popular");
 }
 
 function displayVideos(videos, rowId, isPlaylist = false) {
   const row = document.getElementById(rowId);
-  if (!row || !videos) return;
-
   row.innerHTML = "";
 
   videos.forEach(video => {
@@ -96,8 +87,6 @@ function loadContinueWatching() {
   if (!data) return;
 
   const row = document.getElementById("row-continue");
-  if (!row) return;
-
   row.innerHTML = "";
 
   const card = document.createElement("div");
