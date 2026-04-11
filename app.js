@@ -12,15 +12,6 @@ const playlists = {
 };
 
 // INIT PLAYER
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player("player", {
-    height: "100%",
-    width: "100%",
-    videoId: "",
-  });
-
-  loadAll();
-}
 
 // LOAD EVERYTHING
 function loadAll() {
