@@ -1,36 +1,66 @@
 import express from "express";
 import fetch from "node-fetch";
-import dotenv from "dotenv";
-import cors from "cors";
-
-dotenv.config();
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 3000;
 
-const API_BASE = "https://youtube.googleapis.com/youtube/v3";
 const API_KEY = process.env.YT_API_KEY;
+const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
 
-async function yt(req, res, url) {
-  try { const r = await fetch(url); const d = await r.json(); res.json(d);}
-  catch(e){res.status(500).json({error:"YouTube proxy error"});}
+// 🔹 Helper function
+async function fetchYouTube(url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
 }
 
-app.get("/api/latest",(req,res)=>{
- const channel=req.query.channel;
- const url=`${API_BASE}/search?key=${API_KEY}&channelId=${channel}&part=snippet,id&order=date&maxResults=20&type=video`;
- yt(req,res,url);
+// ✅ Root route (fix blank page)
+app.get("/", (req, res) => {
+  res.send("YouTube API backend running 🚀");
 });
 
-app.get("/api/playlist",(req,res)=>{
- const id=req.query.id;
- const url=`${API_BASE}/playlistItems?part=snippet&maxResults=20&playlistId=${id}&key=${API_KEY}`;
- yt(req,res,url);
+// ✅ Latest videos
+app.get("/latest", async (req, res) => {
+  try {
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`;
+    const data = await fetchYouTube(url);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch latest videos" });
+  }
 });
 
-app.get("/api/popular",(req,res)=>{
- const url=`${API_BASE}/videos?part=snippet&chart=mostPopular&regionCode=ZA&maxResults=20&key=${API_KEY}`;
- yt(req,res,url);
+// ✅ Playlist videos
+app.get("/playlist", async (req, res) => {
+  try {
+    const playlistId = req.query.id;
+
+    if (!playlistId) {
+      return res.status(400).json({ error: "Missing playlist ID" });
+    }
+
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${API_KEY}&playlistId=${playlistId}&part=snippet&maxResults=20`;
+    const data = await fetchYouTube(url);
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch playlist" });
+  }
 });
 
-app.listen(3000,()=>console.log("Proxy running"));
+// ✅ Popular videos
+app.get("/popular", async (req, res) => {
+  try {
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=10`;
+    const data = await fetchYouTube(url);
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch popular videos" });
+  }
+});
+
+// ✅ Start server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

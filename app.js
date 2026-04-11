@@ -1,66 +1,99 @@
-import express from "express";
-import fetch from "node-fetch";
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-const API_KEY = process.env.https://khubalo.onrender.com/;
+const API_KEY = "https://khubalo.onrender.com/";
 const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
+let player;
 
-// 🔹 Helper function
-async function fetchYouTube(url) {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
+const playlists = {
+  talk: "PL8W_paC7-AOtTlt5kzJXexdirvM5HGIHf",
+  cartoons: "PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix",
+  musicvideos: "PL8W_paC7-AOs-YVLrcN1rw_MhozUIoESZ",
+  music: "PL8W_paC7-AOvTL0ZF6iSiZhYxpjV1uVGD"
+};
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("player", {
+    height: "100%",
+    width: "100%",
+    videoId: "",
+  });
+
+  loadAll();
 }
 
-// ✅ Root route (fix blank page)
-app.get("/", (req, res) => {
-  res.send("YouTube API backend running 🚀");
-});
+async function fetchAPI(url) {
+  const res = await fetch(url);
+  return res.json();
+}
 
-// ✅ Latest videos
-app.get("/latest", async (req, res) => {
-  try {
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`;
-    const data = await fetchYouTube(url);
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch latest videos" });
-  }
-});
+function loadAll() {
+  loadLatest();
+  loadPlaylist(playlists.talk, "row-talk");
+  loadPlaylist(playlists.cartoons, "row-cartoons");
+  loadPlaylist(playlists.musicvideos, "row-musicvideos");
+  loadPlaylist(playlists.music, "row-music");
+  loadPopular();
+  loadContinueWatching();
+}
 
-// ✅ Playlist videos
-app.get("/playlist", async (req, res) => {
-  try {
-    const playlistId = req.query.id;
+async function loadLatest() {
+  const url = `${API_KEY}/latest`;
+  const data = await fetchAPI(url);
+  displayVideos(data.items, "row-latest");
+}
 
-    if (!playlistId) {
-      return res.status(400).json({ error: "Missing playlist ID" });
-    }
+async function loadPlaylist(id, rowId) {
+  const url = `${API_KEY}/playlist?id=${id}`;
+  const data = await fetchAPI(url);
+  displayVideos(data.items, rowId, true);
+}
 
-    const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${API_KEY}&playlistId=${playlistId}&part=snippet&maxResults=20`;
-    const data = await fetchYouTube(url);
+async function loadPopular() {
+  const url = `${API_KEY}/popular`;
+  const data = await fetchAPI(url);
+  displayVideos(data.items, "row-popular");
+}
 
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch playlist" });
-  }
-});
+function displayVideos(videos, rowId, isPlaylist = false) {
+  const row = document.getElementById(rowId);
+  row.innerHTML = "";
 
-// ✅ Popular videos
-app.get("/popular", async (req, res) => {
-  try {
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=10`;
-    const data = await fetchYouTube(url);
+  videos.forEach(video => {
+    const videoId = isPlaylist
+      ? video.snippet.resourceId.videoId
+      : video.id.videoId || video.id;
 
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch popular videos" });
-  }
-});
+    const card = document.createElement("div");
+    card.classList.add("video-card");
+    card.innerHTML = `<img loading='lazy' src="${video.snippet.thumbnails.medium.url}">`;
 
-// ✅ Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    card.onclick = () => {
+      playVideo(videoId, video.snippet.title);
+    };
+
+    row.appendChild(card);
+  });
+}
+
+function playVideo(id, title) {
+  player.loadVideoById(id);
+  player.unMute();
+  document.getElementById("videoTitle").innerText = title;
+
+  localStorage.setItem("lastVideo", JSON.stringify({ id, title }));
+  loadContinueWatching();
+}
+
+function loadContinueWatching() {
+  const data = JSON.parse(localStorage.getItem("lastVideo"));
+  if (!data) return;
+
+  const row = document.getElementById("row-continue");
+  row.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.classList.add("video-card");
+  card.innerHTML = `<img src="https://img.youtube.com/vi/${data.id}/mqdefault.jpg">`;
+
+  card.onclick = () => playVideo(data.id, data.title);
+
+  row.appendChild(card);
+}
