@@ -21,8 +21,14 @@ function onYouTubeIframeAPIReady() {
 }
 
 async function fetchAPI(url) {
-  const res = await fetch(url);
-  return res.json();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
+  } catch (err) {
+    console.error("Fetch failed:", err);
+    return { items: [] }; // prevents crash
+  }
 }
 
 function loadAll() {
