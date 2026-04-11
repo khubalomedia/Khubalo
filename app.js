@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_BACKEND_PROXY_ENDPOINT";
+const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y";
 const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
 let player;
 
