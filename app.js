@@ -1,5 +1,6 @@
-const API_KEY = "https://khubalo.onrender.com/";
-const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
+// 🔹 Use your backend URL (NOT API KEY)
+const BASE_URL = "https://khubalo.onrender.com";
+
 let player;
 
 const playlists = {
@@ -35,25 +36,27 @@ function loadAll() {
 }
 
 async function loadLatest() {
-  const url = `${API_KEY}/latest`;
+  const url = `${BASE_URL}/latest`;
   const data = await fetchAPI(url);
   displayVideos(data.items, "row-latest");
 }
 
 async function loadPlaylist(id, rowId) {
-  const url = `${API_KEY}/playlist?id=${id}`;
+  const url = `${BASE_URL}/playlist?id=${id}`;
   const data = await fetchAPI(url);
   displayVideos(data.items, rowId, true);
 }
 
 async function loadPopular() {
-  const url = `${API_KEY}/popular`;
+  const url = `${BASE_URL}/popular`;
   const data = await fetchAPI(url);
   displayVideos(data.items, "row-popular");
 }
 
 function displayVideos(videos, rowId, isPlaylist = false) {
   const row = document.getElementById(rowId);
+  if (!row || !videos) return;
+
   row.innerHTML = "";
 
   videos.forEach(video => {
@@ -87,6 +90,8 @@ function loadContinueWatching() {
   if (!data) return;
 
   const row = document.getElementById("row-continue");
+  if (!row) return;
+
   row.innerHTML = "";
 
   const card = document.createElement("div");
