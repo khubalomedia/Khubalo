@@ -1,67 +1,69 @@
 body {
   margin: 0;
+  font-family: Arial, sans-serif;
   background: #0b0b0b;
   color: white;
-  font-family: Arial, sans-serif;
 }
 
+/* HEADER */
 header {
-  padding: 15px;
-  background: black;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  padding: 20px;
 }
 
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* HERO */
 .hero {
-  position: relative;
-  width: 100%;
-  height: 60vh;
-  background: black;
+  padding: 40px 20px;
+  background: linear-gradient(to right, #000, #111);
 }
 
-#player {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-info {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
-
-.rows {
-  padding: 30px 20px;
-}
-
-h3 {
-  margin-top: 40px;
+.hero h1 {
+  font-size: 32px;
   margin-bottom: 10px;
+}
+
+/* ROWS */
+.rows {
+  padding: 10px;
 }
 
 .row {
   display: flex;
   overflow-x: auto;
-  gap: 15px;
-  padding-bottom: 10px;
-  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px 0;
 }
 
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+/* VIDEO CARD */
 .video-card {
-  min-width: 220px;
+  min-width: 200px;
   cursor: pointer;
-  transition: transform 0.3s;
-  scroll-snap-align: start;
-  position: relative;
+  transition: transform 0.3s ease;
 }
 
 .video-card img {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 10px;
+}
+
+.video-card p {
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .video-card:hover {
-  transform: scale(1.1);
-  z-index: 5;
+  transform: scale(1.08);
 }
