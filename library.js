@@ -708,6 +708,3 @@ function showInstallButton() {
 
 
 
-
-
-

@@ -720,31 +720,195 @@ body {
 }
 
 
+/* LIBRARY PAGE */
 
-.install-btn{
+.library-page{
 
-  position:fixed;
+  padding:
+    20px 16px 120px;
 
-  bottom:100px;
+  max-width:1600px;
 
-  right:20px;
+  margin:0 auto;
+}
 
-  z-index:99999;
+/* SECTION */
 
-  background:#ff1a1a;
+.section{
 
-  color:white;
+  margin-bottom:50px;
+}
 
-  border:none;
+/* TITLE */
 
-  padding:15px 22px;
+.section h2{
 
-  border-radius:16px;
+  font-size:34px;
 
   font-weight:800;
 
+  margin-bottom:18px;
+
+  letter-spacing:-1px;
+}
+
+/* VIDEO ROW */
+
+.video-row{
+
+  display:flex;
+
+  gap:14px;
+
+  overflow-x:auto;
+
+  overflow-y:hidden;
+
+  scroll-behavior:smooth;
+
+  scrollbar-width:none;
+
+  padding-bottom:8px;
+}
+
+.video-row::-webkit-scrollbar{
+  display:none;
+}
+
+/* VIDEO CARD */
+
+.video-card{
+
+  position:relative;
+
+  min-width:240px;
+
+  width:240px;
+
+  flex-shrink:0;
+
   cursor:pointer;
 
+  transition:0.25s ease;
+}
+
+.video-card:hover{
+
+  transform:
+    scale(1.04)
+    translateY(-2px);
+
+  z-index:5;
+}
+
+/* IMAGE */
+
+.video-card img{
+
+  width:100%;
+
+  aspect-ratio:16/9;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  background:#111;
+}
+
+/* OVERLAY */
+
+.video-card-content{
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  padding:16px;
+
+  border-radius:
+    0 0 18px 18px;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,0.95)
+    );
+}
+
+/* TITLE */
+
+.video-card-content h4{
+
+  color:white;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  line-height:1.45;
+
+  display:-webkit-box;
+
+  
+
+  -webkit-box-orient:vertical;
+
+  overflow:hidden;
+}
+
+/* HOVER GLOW */
+
+.video-card:hover img{
+
   box-shadow:
-    0 10px 30px rgba(255,0,0,0.3);
+    0 15px 35px rgba(255,0,0,0.18);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .library-page{
+
+    padding:
+      10px 12px 100px;
+  }
+
+  .section{
+
+    margin-bottom:40px;
+  }
+
+  .section h2{
+
+    font-size:26px;
+
+    margin-bottom:14px;
+  }
+
+  .video-row{
+
+    gap:10px;
+  }
+
+  .video-card{
+
+    min-width:170px;
+
+    width:170px;
+  }
+
+  .video-card-content{
+
+    padding:12px;
+  }
+
+  .video-card-content h4{
+
+    font-size:12px;
+  }
+
 }

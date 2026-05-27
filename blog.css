@@ -1,0 +1,156 @@
+*{
+
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+  
+  }
+  
+  body{
+  
+  background:#0f0f0f;
+  color:white;
+  
+  }
+  
+  .header{
+  
+  padding:15px;
+  background:#111;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:1px solid #222;
+  
+  }
+  
+  .logo{
+  
+  font-size:24px;
+  font-weight:bold;
+  color:#ff1a1a;
+  
+  }
+  
+  .feed-container{
+  
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+  
+  }
+  
+  .create-post{
+  
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:20px;
+  
+  }
+  
+  .create-post input,
+  .create-post textarea{
+  
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#111;
+  border:none;
+  border-radius:10px;
+  color:white;
+  
+  }
+  
+  .create-post textarea{
+  
+  min-height:100px;
+  resize:none;
+  
+  }
+  
+  .create-post button{
+  
+  margin-top:12px;
+  padding:12px;
+  width:100%;
+  background:#ff1a1a;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  
+  }
+  
+  .feed-post{
+  
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:20px;
+  
+  }
+  
+  .feed-user{
+  
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  
+  }
+  
+  .avatar{
+  
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#ff1a1a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  
+  }
+  
+  .feed-time{
+  
+  font-size:12px;
+  color:#999;
+  
+  }
+  
+  .feed-text{
+  
+  margin-top:10px;
+  line-height:1.5;
+  
+  }
+  
+  .feed-image{
+  
+  width:100%;
+  border-radius:12px;
+  margin-top:12px;
+  
+  }
+  
+  .feed-actions{
+  
+  display:flex;
+  gap:15px;
+  margin-top:12px;
+  color:#aaa;
+  font-size:14px;
+  
+  }
+  
+  .loading{
+  
+  text-align:center;
+  padding:20px;
+  
+  }

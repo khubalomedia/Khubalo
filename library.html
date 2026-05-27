@@ -24,6 +24,7 @@
   href="images/icons/icon-192.png"
 />
 
+
 </head>
 
 <body>
@@ -174,11 +175,48 @@
 
 
 
-    <!-- HOME -->
-    <section class="section category-section" id="section-home">
-      <h2>Home Videos</h2>
-      <div id="row-home" class=class="video-row"></div>
-    </section>
+<!-- CONTENT -->
+
+<main class="library-page">
+
+  <!-- TALK SHOWS -->
+
+  <section class="section">
+
+    <h2>Talk Shows</h2>
+
+    <div
+      id="row-talk"
+      class="video-row"
+    ></div>
+
+  </section>
+
+  <!-- CARTOONS -->
+
+  <section class="section">
+
+    <h2>Cartoons</h2>
+
+    <div
+      id="row-cartoons"
+      class="video-row"
+    ></div>
+
+  </section>
+
+  <!-- MUSIC VIDEOS -->
+
+  <section class="section">
+
+    <h2>Music Videos</h2>
+
+    <div
+      id="row-musicvideos"
+      class="video-row"
+    ></div>
+
+  </section>
 
 
 
@@ -187,6 +225,22 @@
   </main>
 
 </div>
+
+
+
+<script>
+
+  function toggleMenu(){
+  
+    document
+    .getElementById("dropdownMenu")
+    .classList
+    .toggle("active");
+  
+  }
+  
+  </script>
+
 
 
 <!-- MOBILE NAV -->
@@ -216,26 +270,7 @@
 
 </div>
 
-
-
-
-<script>
-
-  function toggleMenu(){
-  
-    document
-    .getElementById("dropdownMenu")
-    .classList
-    .toggle("active");
-  
-  }
-  
-  </script>
-
-
-
 <script src="app.js"></script>
-
 
 
 <script>
@@ -248,7 +283,6 @@
   }
   
   </script>
-
 
 
 </body>
