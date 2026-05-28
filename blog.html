@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -21,13 +22,13 @@ content="width=device-width, initial-scale=1.0"
 
 <header class="header">
 
-<div class="logo">
+<h1 class="logo">
 BaloTV
-</div>
+</h1>
 
 </header>
 
-<div class="feed-container">
+<main class="container">
 
 <!-- CREATE POST -->
 
@@ -44,30 +45,17 @@ id="content"
 placeholder="What's happening on BaloTV?"
 ></textarea>
 
-<input
-type="file"
-id="imageInput"
-accept="image/*"
->
-
-<button onclick="createPost()">
-Post To Feed
+<button id="postBtn">
+Post
 </button>
 
 </div>
 
 <!-- POSTS -->
 
-<div id="feed"></div>
+<div id="posts"></div>
 
-<div
-class="loading"
-id="loading"
->
-Loading feed...
-</div>
-
-</div>
+</main>
 
 <script src="blog.js"></script>
 

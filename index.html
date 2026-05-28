@@ -32,6 +32,8 @@
 
 <header class="topbar">
 
+  <!-- HAMBURGER MENU -->
+
   <div
     class="menu-btn"
     onclick="toggleMenu()"
@@ -42,6 +44,8 @@
     <span></span>
 
   </div>
+
+  <!-- DROPDOWN MENU -->
 
   <div
     class="dropdown-menu"
@@ -79,7 +83,11 @@
 
 <div class="layout">
 
+   <!-- MAIN -->
+
 <main class="content">
+
+<!-- PLAYER -->
 
 <section
   class="player-section hidden"
@@ -92,6 +100,8 @@
   allowfullscreen
   allow="autoplay"
 ></iframe>
+
+<!-- PLAYER CONTROLS -->
 
 <div class="player-controls">
 
@@ -115,39 +125,7 @@ Next ⏭
 
 </div>
 
-<div class="video-info">
-
-<div class="video-meta">
-
-<div
-  class="video-badge live-badge"
->
-
-● NOW PLAYING
-
-</div>
-
-<div class="video-badge">
-
-BaloTV Stream
-
-</div>
-
-</div>
-
-<h1 id="video-title">
-
-Welcome to BaloTV
-
-</h1>
-
-<p id="video-description">
-
-Select any video to start watching.
-
-</p>
-
-</div>
+ <!-- UP NEXT -->
 
 <section class="section">
 
@@ -166,88 +144,42 @@ Select any video to start watching.
 
 </section>
 
-<section
-  class="section category-section"
-  id="section-home"
->
+<!-- CONTENT -->
 
-<h2>Home Videos</h2>
-
-<div
-  id="row-home"
-  class="video-row"
-></div>
-
+<section class="section category-section" id="section-home">
+  <h2>Home Videos</h2>
+  <div id="row-home" class="video-row"></div>
 </section>
 
-<section
-  class="section category-section"
->
-
-<h2>Music Videos</h2>
-
-<div
-  id="row-musicvideos"
-  class="video-row"
-></div>
-
-</section>
-
-<section
-  class="section category-section"
->
-
-<h2>Cartoons</h2>
-
-<div
-  id="row-cartoons"
-  class="video-row"
-></div>
-
-</section>
-
-<section
-  class="section category-section"
->
-
-<h2>Talk Shows</h2>
-
-<div
-  id="row-talk"
-  class="video-row"
-></div>
-
-</section>
 
 </main>
 
 </div>
 
+<!-- MOBILE NAV -->
+
 <div class="mobile-nav">
 
-<button
-  class="mobile-nav-btn active"
->
+  <button
+    class="mobile-nav-btn active"
+    onclick="window.location.href='index.html'"
+  >
+    Home
+  </button>
 
-Home
+  <button
+    class="mobile-nav-btn"
+    onclick="window.location.href='library.html'"
+  >
+    Library
+  </button>
 
-</button>
-
-<button
-  class="mobile-nav-btn"
->
-
-Library
-
-</button>
-
-<button
-  class="mobile-nav-btn"
->
-
-Blog
-
-</button>
+  <button
+    class="mobile-nav-btn"
+    onclick="window.location.href='blog.html'"
+  >
+    Blog
+  </button>
 
 </div>
 
@@ -263,6 +195,19 @@ function toggleMenu(){
 }
 
 </script>
+
+
+<script>
+
+  if("serviceWorker" in navigator){
+  
+    navigator.serviceWorker
+    .register("/service-worker.js");
+  
+  }
+
+</script>
+
 
 <script src="app.js"></script>
 
