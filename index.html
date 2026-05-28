@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
 
 <title>BaloTV</title>
 
 <link rel="stylesheet" href="styles.css">
-
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#000000">
-
 
 <link rel="manifest" href="manifest.json">
 
@@ -28,228 +30,242 @@
 
 <body>
 
+<header class="topbar">
 
+  <div
+    class="menu-btn"
+    onclick="toggleMenu()"
+  >
 
-
-
-
-  <header class="topbar">
-
-    <!-- HAMBURGER MENU -->
-  
-    <div class="menu-btn" onclick="toggleMenu()">
-  
-      <span></span>
-      <span></span>
-      <span></span>
-  
-    </div>
-  
-    <!-- DROPDOWN MENU -->
-  
-    <div class="dropdown-menu" id="dropdownMenu">
-  
-      <a href="index.html">Home</a>
-  
-      <a href="about.html">Why BaloTV</a>
-  
-      <a href="terms.html">Terms</a>
-  
-    </div>
-  
-    <div class="logo">
-      <img src="images/balotv-logo.png" alt="BaloTV">
-    </div>
-  
-    <div class="top-right">
-      <input type="text" placeholder="Search..." id="searchInput">
-    </div>
-  
-  </header>
-
-
-
-<div class="layout">
-
-
-
-  <!-- MAIN -->
-  <main class="content">
-
-    <!-- PLAYER -->
-    <section
-     class="player-section hidden"
-       id="playerSection"
-    >
-      <iframe
-        id="video-player"
-        src=""
-        allowfullscreen
-        allow="autoplay"
-      ></iframe>
-
-
-<!-- PLAYER CONTROLS -->
-
-<div class="player-controls">
-
-  <button id="prevBtn" class="control-btn">
-
-    <span>⏮</span>
-
-    Previous
-
-  </button>
-
-  <button id="nextBtn" class="control-btn next">
-
-    Next
-
-    <span>⏭</span>
-
-  </button>
-
-</div>
-
-<!-- VIDEO INFO -->
-
-<div class="video-info">
-
-  <div class="video-meta">
-
-    <div class="video-badge live-badge">
-
-      ● NOW PLAYING
-
-    </div>
-
-    <div class="video-badge">
-
-      BaloTV Stream
-
-    </div>
+    <span></span>
+    <span></span>
+    <span></span>
 
   </div>
 
-  <h1 id="video-title">
+  <div
+    class="dropdown-menu"
+    id="dropdownMenu"
+  >
 
-    Welcome to BaloTV
+    <a href="index.html">Home</a>
 
-  </h1>
+    <a href="library.html">Library</a>
 
-  <p id="video-description">
+    <a href="blog.html">Blog</a>
 
-    Select any video to start watching.
+  </div>
 
-  </p>
+  <div class="logo">
+
+    <img
+      src="images/balotv-logo.png"
+      alt="BaloTV"
+    >
+
+  </div>
+
+  <div class="top-right">
+
+    <input
+      type="text"
+      placeholder="Search..."
+      id="searchInput"
+    >
+
+  </div>
+
+</header>
+
+<div class="layout">
+
+<main class="content">
+
+<section
+  class="player-section hidden"
+  id="playerSection"
+>
+
+<iframe
+  id="video-player"
+  src=""
+  allowfullscreen
+  allow="autoplay"
+></iframe>
+
+<div class="player-controls">
+
+<button
+  id="prevBtn"
+  class="control-btn"
+>
+
+⏮ Previous
+
+</button>
+
+<button
+  id="nextBtn"
+  class="control-btn next"
+>
+
+Next ⏭
+
+</button>
 
 </div>
 
+<div class="video-info">
 
+<div class="video-meta">
 
+<div
+  class="video-badge live-badge"
+>
 
-  <!-- UP NEXT -->
+● NOW PLAYING
 
-  <section class="section">
+</div>
 
-    <div class="section-title">
+<div class="video-badge">
 
-      <h2>Up Next</h2>
+BaloTV Stream
 
-    </div>
+</div>
 
-    <div
-      id="up-next-row"
-      class="video-row"
-    ></div>
+</div>
 
-  </section>
+<h1 id="video-title">
 
+Welcome to BaloTV
+
+</h1>
+
+<p id="video-description">
+
+Select any video to start watching.
+
+</p>
+
+</div>
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>Up Next</h2>
+
+</div>
+
+<div
+  id="up-next-row"
+  class="video-row"
+></div>
 
 </section>
 
+</section>
 
+<section
+  class="section category-section"
+  id="section-home"
+>
 
+<h2>Home Videos</h2>
 
+<div
+  id="row-home"
+  class="video-row"
+></div>
 
+</section>
 
+<section
+  class="section category-section"
+>
 
-    <!-- HOME -->
-    <section class="section category-section" id="section-home">
-      <h2>Home Videos</h2>
-      <div id="row-home" class=class="video-row"></div>
-    </section>
+<h2>Music Videos</h2>
 
+<div
+  id="row-musicvideos"
+  class="video-row"
+></div>
 
+</section>
 
+<section
+  class="section category-section"
+>
 
-    
-  </main>
+<h2>Cartoons</h2>
+
+<div
+  id="row-cartoons"
+  class="video-row"
+></div>
+
+</section>
+
+<section
+  class="section category-section"
+>
+
+<h2>Talk Shows</h2>
+
+<div
+  id="row-talk"
+  class="video-row"
+></div>
+
+</section>
+
+</main>
 
 </div>
-
-
-<!-- MOBILE NAV -->
 
 <div class="mobile-nav">
 
-  <button
-    class="mobile-nav-btn active"
-    onclick="window.location.href='index.html'"
-  >
-    Home
-  </button>
+<button
+  class="mobile-nav-btn active"
+>
 
-  <button
-    class="mobile-nav-btn"
-    onclick="window.location.href='library.html'"
-  >
-    Library
-  </button>
+Home
 
-  <button
-    class="mobile-nav-btn"
-    onclick="window.location.href='blog.html'"
-  >
-    Blog
-  </button>
+</button>
+
+<button
+  class="mobile-nav-btn"
+>
+
+Library
+
+</button>
+
+<button
+  class="mobile-nav-btn"
+>
+
+Blog
+
+</button>
 
 </div>
 
-
-
-
 <script>
 
-  function toggleMenu(){
-  
-    document
+function toggleMenu(){
+
+  document
     .getElementById("dropdownMenu")
     .classList
     .toggle("active");
-  
-  }
-  
-  </script>
 
+}
 
+</script>
 
 <script src="app.js"></script>
 
-
-
-<script>
-
-  if("serviceWorker" in navigator){
-  
-    navigator.serviceWorker
-    .register("/service-worker.js");
-  
-  }
-  
-  </script>
-
-
-
 </body>
+
 </html>
