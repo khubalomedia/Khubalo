@@ -1,93 +1,116 @@
-const API_KEY = "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y";
-const CHANNEL_ID = "UC5reF0zkdOnB3GEpVqNJfHw";
+/* =========================================
+   BaloTV — GitHub Ready
+   NO YOUTUBE API
+   PLAYLIST EMBED VERSION
+========================================= */
 
-/* PLAYLISTS */
+/* PLAYLIST CATEGORIES */
 
 const playlists = {
 
-  home: "PL8W_paC7-AOtnMN3II9_ukOAeNqBUZsy5",
+  home: [
 
-  talk: "PL8W_paC7-AOtTlt5kzJXexdirvM5HGIHf",
+    {
+      title: "Home",
+      playlistId:
+        "PL8W_paC7-AOtnMN3II9_ukOAeNqBUZsy5",
 
-  cartoons: "PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix",
+      thumbnail:
+        "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
 
-  musicvideos: "PL8W_paC7-AOs-YVLrcN1rw_MhozUIoESZ",
+      description:
+        "Featured home videos"
+    }
 
-  
+  ],
+
+  talk: [
+
+    {
+      title: "Talk Shows",
+      playlistId:
+        "PL8W_paC7-AOtTlt5kzJXexdirvM5HGIHf",
+
+      thumbnail:
+        "https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg",
+
+      description:
+        "Talk shows and interviews"
+    }
+
+  ],
+
+  cartoons: [
+
+    {
+      title: "Cartoons",
+      playlistId:
+        "PL8W_paC7-AOuHLHtxjVGMRaeEVFdqpoix",
+
+      thumbnail:
+        "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg",
+
+      description:
+        "Cartoon entertainment"
+    }
+
+  ],
+
+  musicvideos: [
+
+    {
+      title: "Music Videos",
+      playlistId:
+        "PL8W_paC7-AOs-YVLrcN1rw_MhozUIoESZ",
+
+      thumbnail:
+        "https://img.youtube.com/vi/kJQP7kiw5Fk/hqdefault.jpg",
+
+      description:
+        "Latest music videos"
+    }
+
+  ]
+
 };
-
-/* LOAD */
-
-async function loadAll() {
-
-  for (const category in playlists) {
-    loadPlaylist(playlists[category], `row-${category}`);
-  }
-
-  loadContinueWatching();
-}
-
-/* LOAD PLAYLIST */
-
-async function loadPlaylist(id, rowId) {
-
-  let allVideos = [];
-  let nextPageToken = "";
-
-  try {
-
-    do {
-
-      const url =
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&pageToken=${nextPageToken}&key=${API_KEY}`;
-
-      const res = await fetch(url);
-
-      const data = await res.json();
-
-      allVideos.push(...data.items);
-
-      nextPageToken = data.nextPageToken || "";
-
-    } while (nextPageToken);
-
-    displayVideos(allVideos, rowId);
-
-  } catch (err) {
-
-    console.log(err);
-
-  }
-
-}
 
 /* GLOBAL PLAYER STATE */
 
 let currentPlaylist = [];
 let currentIndex = 0;
 
+/* LOAD */
+
+function loadAll() {
+
+  for (const category in playlists) {
+
+    displayVideos(
+      playlists[category],
+      `row-${category}`
+    );
+
+  }
+
+}
+
 /* DISPLAY VIDEOS */
 
 function displayVideos(videos, rowId) {
 
-  const row = document.getElementById(rowId);
+  const row =
+    document.getElementById(rowId);
+
+  if (!row) return;
 
   row.innerHTML = "";
 
   videos.forEach((video, index) => {
 
-    if (
-      !video.snippet ||
-      !video.snippet.resourceId
-    ) return;
-
-    const videoId =
-      video.snippet.resourceId.videoId;
-
     const shortTitle =
-      video.snippet.title.length > 50
-        ? video.snippet.title.slice(0, 50) + "..."
-        : video.snippet.title;
+      video.title.length > 50
+        ? video.title.slice(0, 50) + "..."
+        : video.title;
 
     const card =
       document.createElement("div");
@@ -97,7 +120,8 @@ function displayVideos(videos, rowId) {
     card.innerHTML = `
 
       <img
-        src="${video.snippet.thumbnails.medium.url}"
+        src="${video.thumbnail}"
+        loading="lazy"
       >
 
       <div class="video-card-content">
@@ -108,20 +132,18 @@ function displayVideos(videos, rowId) {
 
     `;
 
-    /* CLICK VIDEO */
+    /* CLICK CATEGORY */
 
     card.onclick = () => {
-
-      /* CREATE QUEUE FROM CURRENT CATEGORY */
 
       currentPlaylist = videos;
 
       currentIndex = index;
 
       playVideo(
-        videoId,
-        video.snippet.title,
-        video.snippet.description
+        video.playlistId,
+        video.title,
+        video.description
       );
 
       updateUpNext();
@@ -134,10 +156,10 @@ function displayVideos(videos, rowId) {
 
 }
 
-/* PLAY VIDEO */
+/* PLAY PLAYLIST */
 
 function playVideo(
-  videoId,
+  playlistId,
   title = "",
   description = ""
 ){
@@ -152,7 +174,7 @@ function playVideo(
     document.getElementById("video-player");
 
   player.src =
-    `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    `https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1&rel=0`;
 
   /* SHORT DESCRIPTION */
 
@@ -181,7 +203,7 @@ function playVideo(
   localStorage.setItem(
     "lastPlayedVideo",
     JSON.stringify({
-      videoId,
+      playlistId,
       title,
       description
     })
@@ -196,9 +218,7 @@ function playVideo(
 
 }
 
-
-
-/* LOAD LAST PLAYED VIDEO */
+/* LOAD LAST PLAYED */
 
 function loadLastPlayedVideo(){
 
@@ -212,16 +232,14 @@ function loadLastPlayedVideo(){
   if(!saved) return;
 
   playVideo(
-    saved.videoId,
+    saved.playlistId,
     saved.title,
     saved.description
   );
 
 }
 
-
-
-/* UP NEXT QUEUE */
+/* UP NEXT */
 
 function updateUpNext(){
 
@@ -232,16 +250,9 @@ function updateUpNext(){
 
   row.innerHTML = "";
 
-  const nextVideos =
-    currentPlaylist.slice(
-      currentIndex + 1,
-      currentIndex + 8
-    );
+  currentPlaylist.forEach((video, index) => {
 
-  nextVideos.forEach((video, index) => {
-
-    const videoId =
-      video.snippet.resourceId.videoId;
+    if(index === currentIndex) return;
 
     const card =
       document.createElement("div");
@@ -251,13 +262,13 @@ function updateUpNext(){
     card.innerHTML = `
 
       <img
-        src="${video.snippet.thumbnails.medium.url}"
+        src="${video.thumbnail}"
       >
 
       <div class="video-card-content">
 
         <h4>
-          ${video.snippet.title.slice(0, 45)}
+          ${video.title.slice(0,45)}
         </h4>
 
       </div>
@@ -266,13 +277,12 @@ function updateUpNext(){
 
     card.onclick = () => {
 
-      currentIndex =
-        currentIndex + index + 1;
+      currentIndex = index;
 
       playVideo(
-        videoId,
-        video.snippet.title,
-        video.snippet.description
+        video.playlistId,
+        video.title,
+        video.description
       );
 
       updateUpNext();
@@ -285,10 +295,7 @@ function updateUpNext(){
 
 }
 
-
-
-
-/* NEXT VIDEO */
+/* NEXT CATEGORY */
 
 function playNext(){
 
@@ -302,13 +309,10 @@ function playNext(){
     const nextVideo =
       currentPlaylist[currentIndex];
 
-    const videoId =
-      nextVideo.snippet.resourceId.videoId;
-
     playVideo(
-      videoId,
-      nextVideo.snippet.title,
-      nextVideo.snippet.description
+      nextVideo.playlistId,
+      nextVideo.title,
+      nextVideo.description
     );
 
     updateUpNext();
@@ -317,8 +321,7 @@ function playNext(){
 
 }
 
-
-/* PREVIOUS VIDEO */
+/* PREVIOUS CATEGORY */
 
 function playPrevious(){
 
@@ -329,13 +332,10 @@ function playPrevious(){
     const prevVideo =
       currentPlaylist[currentIndex];
 
-    const videoId =
-      prevVideo.snippet.resourceId.videoId;
-
     playVideo(
-      videoId,
-      prevVideo.snippet.title,
-      prevVideo.snippet.description
+      prevVideo.playlistId,
+      prevVideo.title,
+      prevVideo.description
     );
 
     updateUpNext();
@@ -354,64 +354,11 @@ document
   .getElementById("prevBtn")
   .addEventListener("click", playPrevious);
 
-
-
-
-/* HIDE PLAYER WHEN SWITCHING CATEGORY */
+/* HIDE PLAYER INITIALLY */
 
 document
   .getElementById("playerSection")
   .classList.add("hidden");
-
-
-
-  
-
-/* SAVE */
-
-function saveLastVideo(id, title) {
-
-  localStorage.setItem(
-    "lastVideo",
-    JSON.stringify({ id, title })
-  );
-
-}
-
-
-
-/* CATEGORY SWITCHING */
-
-const buttons =
-  document.querySelectorAll(".category-btn");
-
-const sections =
-  document.querySelectorAll(".category-section");
-
-buttons.forEach(button => {
-
-  button.addEventListener("click", () => {
-
-    buttons.forEach(btn =>
-      btn.classList.remove("active")
-    );
-
-    button.classList.add("active");
-
-    const category =
-      button.dataset.category;
-
-    sections.forEach(section =>
-      section.classList.add("hidden")
-    );
-
-    document
-      .getElementById(`section-${category}`)
-      .classList.remove("hidden");
-
-  });
-
-});
 
 /* SEARCH */
 
@@ -443,271 +390,88 @@ document
 
 loadAll();
 
+loadLastPlayedVideo();
 
-
-
-
-
-
-
-let isLogin = true;
-
-const authModal =
-  document.getElementById("authModal");
-
-const authTitle =
-  document.getElementById("authTitle");
-
-const switchAuth =
-  document.getElementById("switchAuth");
-
-/* LOGIN BUTTON */
-
-document
-  .getElementById("loginBtn")
-  .addEventListener("click", () => {
-
-    authModal.classList.remove("hidden");
-
-    authTitle.innerText = "Login";
-
-    isLogin = true;
-
-  });
-
-/* REGISTER BUTTON */
-
-document
-  .getElementById("registerBtn")
-  .addEventListener("click", () => {
-
-    authModal.classList.remove("hidden");
-
-    authTitle.innerText = "Register";
-
-    isLogin = false;
-
-  });
-
-/* BOTTOM REGISTER BUTTON */
-
-document
-  .getElementById("bottomRegisterBtn")
-  .addEventListener("click", () => {
-
-    authModal.classList.remove("hidden");
-
-    authTitle.innerText = "Register";
-
-    isLogin = false;
-
-  });
-
-/* SWITCH */
-
-switchAuth.addEventListener("click", () => {
-
-  isLogin = !isLogin;
-
-  authTitle.innerText =
-    isLogin ? "Login" : "Register";
-
-  switchAuth.innerText =
-    isLogin
-      ? "Don't have an account? Register"
-      : "Already have an account? Login";
-
-});
-
-/* SUBMIT */
-
-document
-  .getElementById("authSubmit")
-  .addEventListener("click", async () => {
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    const password =
-      document.getElementById("password").value.trim();
-
-    if (!email || !password) {
-
-      alert("Please fill in all fields");
-
-      return;
-
-    }
-
-    try {
-
-      if (isLogin) {
-
-        await auth.signInWithEmailAndPassword(
-          email,
-          password
-        );
-
-        alert("Logged in successfully!");
-
-      } else {
-
-        await auth.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-
-        alert("Account created successfully!");
-
-      }
-
-      authModal.classList.add("hidden");
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(error.message);
-
-    }
-
-  });
-
-/* FORGOT PASSWORD */
-
-document
-  .getElementById("forgotPassword")
-  .addEventListener("click", async () => {
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    if (!email) {
-
-      alert("Enter your email");
-
-      return;
-
-    }
-
-    try {
-
-      await auth.sendPasswordResetEmail(email);
-
-      alert("Password reset email sent!");
-
-    } catch (error) {
-
-      alert(error.message);
-
-    }
-
-  });
-
-/* AUTH STATE */
-
-auth.onAuthStateChanged(user => {
-
-  if (user) {
-
-    document.querySelector(".logo").innerText =
-      `BaloTV • ${user.email}`;
-
-  } else {
-
-    document.querySelector(".logo").innerText =
-      "BaloTV";
-
-  }
-
-});
-
-
-auth.onAuthStateChanged(user => {
-
-  if (user) {
-
-    document.querySelector(".logo").innerText =
-      `BaloTV • ${user.email}`;
-
-  }
-
-});
-
-
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyD6o4Zwpt0Qim-6lLdJ4Ti0gUWJbrMwk-Y",
-
-  authDomain: "balotv-d9c1d.firebaseapp.com",
-
-  projectId: "balotv-d9c1d",
-
-  storageBucket: "balotv-d9c1d.firebasestorage.app",
-
-  messagingSenderId: "96925959779",
-
-  appId: "1:96925959779:web:ed8cef5de90a0f410ada56"
-
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-auth.setPersistence(
-  firebase.auth.Auth.Persistence.LOCAL
-);
-
+/* SERVICE WORKER */
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js");
+
+  navigator.serviceWorker
+    .register("/service-worker.js");
+
 }
 
-
+/* INSTALL PROMPT */
 
 let deferredPrompt;
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+window.addEventListener(
+  "beforeinstallprompt",
+  (e) => {
 
-  showInstallButton(); // we create this next
-});
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    showInstallButton();
+
+  }
+);
 
 function showInstallButton() {
-  const btn = document.createElement("button");
-  btn.innerText = "📲 Install BaloTV App";
+
+  const btn =
+    document.createElement("button");
+
+  btn.innerText =
+    "📲 Install BaloTV App";
+
   btn.style.position = "fixed";
+
   btn.style.bottom = "20px";
+
   btn.style.right = "20px";
+
   btn.style.padding = "12px 16px";
+
   btn.style.background = "#000";
+
   btn.style.color = "#fff";
-  btn.style.border = "1px solid #fff";
+
+  btn.style.border =
+    "1px solid #fff";
+
   btn.style.borderRadius = "8px";
+
   btn.style.zIndex = "9999";
 
   document.body.appendChild(btn);
 
-  btn.addEventListener("click", async () => {
-    btn.style.display = "none";
+  btn.addEventListener(
+    "click",
+    async () => {
 
-    deferredPrompt.prompt();
+      btn.style.display = "none";
 
-    const choice = await deferredPrompt.userChoice;
+      deferredPrompt.prompt();
 
-    if (choice.outcome === "accepted") {
-      console.log("User installed app");
+      const choice =
+        await deferredPrompt.userChoice;
+
+      if (
+        choice.outcome ===
+        "accepted"
+      ) {
+
+        console.log(
+          "User installed app"
+        );
+
+      }
+
+      deferredPrompt = null;
+
     }
+  );
 
-    deferredPrompt = null;
-  });
 }
-
-
-
-
-
-
