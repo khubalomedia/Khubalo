@@ -16,64 +16,57 @@ content="width=device-width, initial-scale=1.0"
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-</head>
+<!-- TOPBAR -->
 
-<body>
+<header class="topbar">
 
-<header class="header">
+  <div class="topbar-left">
 
+    <!-- MENU -->
 
-  <!-- HAMBURGER MENU -->
+    <div class="menu-btn" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-  <div
-    class="menu-btn"
-    onclick="toggleMenu()"
-  >
+    <!-- LOGO -->
 
-    <span></span>
-    <span></span>
-    <span></span>
+    <a href="index.html" class="logo">
+      <img src="images/balotv-logo.png" alt="BaloTV">
+    </a>
 
   </div>
 
-  <!-- DROPDOWN MENU -->
 
-  <div
-    class="dropdown-menu"
-    id="dropdownMenu"
-  >
+
+  <!-- BUTTONS -->
+
+  <div class="header-actions">
+
+    <button class="header-btn login-btn">
+      Login
+    </button>
+
+    <button class="header-btn register-btn">
+      Register
+    </button>
+
+  </div>
+
+  <!-- DROPDOWN -->
+
+  <div class="dropdown-menu" id="dropdownMenu">
 
     <a href="index.html">Home</a>
 
+    <a href="library.html">Library</a>
+
     <a href="about.html">Submit Content</a>
 
-    <a href="blog.html">Blog</a>
+    <a href="terms.html">Terms</a>
 
   </div>
-
-
-<!-- LOGO -->
-
-<div class="logo">
-
-  <img
-    src="images/balotv-logo.png"
-    alt="BaloTV"
-  >
-
-</div>
-
-<!-- SEARCH -->
-
-<div class="top-right">
-
-  <input
-    type="text"
-    placeholder="Search..."
-    id="searchInput"
-  />
-
-</div>
 
 </header>
 
