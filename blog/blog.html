@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>BaloTV Feed</title>
+
+<link rel="stylesheet" href="blog.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+
+  <!-- HAMBURGER MENU -->
+
+  <div
+    class="menu-btn"
+    onclick="toggleMenu()"
+  >
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+  <!-- DROPDOWN MENU -->
+
+  <div
+    class="dropdown-menu"
+    id="dropdownMenu"
+  >
+
+    <a href="index.html">Home</a>
+
+    <a href="about/about.html">Submit Content</a>
+
+    <a href="blog/blog.html">Blog</a>
+
+  </div>
+
+
+<h1 class="logo">
+BaloTV
+</h1>
+
+</header>
+
+<main class="container">
+
+<!-- CREATE POST -->
+
+<div class="create-post">
+
+<input
+type="text"
+id="username"
+placeholder="Your name"
+>
+
+<textarea
+id="content"
+placeholder="What's happening on BaloTV?"
+></textarea>
+
+<button id="postBtn">
+Post
+</button>
+
+</div>
+
+<!-- POSTS -->
+
+<div id="posts"></div>
+
+</main>
+
+
+<!-- MOBILE NAV -->
+
+<div class="mobile-nav">
+
+    <button
+      class="mobile-nav-btn active"
+      onclick="window.location.href='index.html'"
+    >
+      Home
+    </button>
+  
+    <button
+      class="mobile-nav-btn"
+      onclick="window.location.href='library.html'"
+    >
+      Library
+    </button>
+  
+    <button
+      class="mobile-nav-btn"
+      onclick="window.location.href='blog.html'"
+    >
+      Blog
+    </button>
+  
+  </div>
+
+
+<script src="blog.js"></script>
+
+</body>
+</html>
