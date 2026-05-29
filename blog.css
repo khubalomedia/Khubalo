@@ -51,6 +51,35 @@
 }
 
 
+.topbar{
+  position:relative;
+}
+
+.logo{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo img{
+  height:55px;
+  width:auto;
+}
+
+
+
+@media(max-width:768px){
+
+  .logo img{
+    height:42px;
+  }
+
+}
+
+
 
 /* BUTTONS */
 
