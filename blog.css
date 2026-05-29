@@ -14,24 +14,35 @@
   
   }
   
-  .header{
-  
-  padding:15px;
-  background:#111;
-  position:sticky;
-  top:0;
-  z-index:100;
-  border-bottom:1px solid #222;
-  
-  }
-  
-  .logo{
-  
-  font-size:24px;
-  font-weight:bold;
-  color:#ff1a1a;
-  
-  }
+  /* TOPBAR */
+
+.topbar {
+  height: 70px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.top-right input {
+  background: #1a1a1a;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  width: 220px;
+}
   
   .feed-container{
   
@@ -175,7 +186,7 @@
 
   height:4px;
   width:100%;
-  background:white;
+  background:#ff1a1a;
   border-radius:5px;
 
 }
