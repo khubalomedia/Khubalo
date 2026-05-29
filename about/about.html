@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About BaloTV</title>
+
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+
+  <header class="topbar">
+
+    <!-- HAMBURGER MENU -->
+  
+    <div class="menu-btn" onclick="toggleMenu()">
+  
+      <span></span>
+      <span></span>
+      <span></span>
+  
+    </div>
+  
+    <!-- DROPDOWN MENU -->
+  
+    <div class="dropdown-menu" id="dropdownMenu">
+  
+      <a href="index.html">Home</a>
+  
+      <a href="about/about.html">Submit Content</a>
+  
+      <a href="terms/terms.html">Terms</a>
+  
+    </div>
+  
+
+
+
+    <link rel="manifest" href="manifest.json">
+
+    <meta
+      name="theme-color"
+      content="#ff1a1a"
+    />
+    
+    <link
+      rel="apple-touch-icon"
+      href="images/icons/icon-192.png"
+    />
+
+
+  
+  </header>   
+
+
+  <header class="hero">
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+
+      <img src="images/balotv-logo.png" class="logo" alt="BaloTV">
+
+      <h1>BE PART OF THE MOVEMENT</h1>
+
+      <p class="hero-text">
+        Let’s reclaim African content.
+        BaloTV is building a home for African creators —
+        by Africans, for Africans.
+      </p>
+
+      <a href="#" class="btn">
+        Submit Your Content
+      </a>
+
+    </div>
+
+
+
+
+
+    
+
+  </header>
+
+  <section class="about">
+
+    <h2>Why BaloTV Exists</h2>
+
+    <p>
+      TikTok and YouTube profit from African stories,
+      culture and talent.
+    </p>
+
+    <p>
+      BaloTV was created to give African creators
+      their own platform where our stories,
+      voices and creativity can thrive.
+    </p>
+
+    <p>
+      We believe African entertainment should belong
+      to Africans.
+    </p>
+
+  </section>
+
+  <section class="features">
+
+    <div class="card">
+      <h3>Reach African Audiences</h3>
+      <p>
+        Get your content discovered across Africa.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Support African Creators</h3>
+      <p>
+        We promote African talent and original voices.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Own Our Culture</h3>
+      <p>
+        Take back our stories from foreign platforms.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Grow Together</h3>
+      <p>
+        Join creators shaping the future of African media.
+      </p>
+    </div>
+
+  </section>
+
+  <section class="content-types">
+
+    <h2>We Accept Content Like:</h2>
+
+    <div class="content-grid">
+
+      <div class="type">Movies</div>
+      <div class="type">Series</div>
+      <div class="type">Short Films</div>
+      <div class="type">Music Videos</div>
+      <div class="type">Comedy</div>
+      <div class="type">Documentaries</div>
+      <div class="type">Lifestyle</div>
+      <div class="type">Podcasts</div>
+
+    </div>
+
+  </section>
+
+  <section class="steps">
+
+    <h2>How To Join</h2>
+
+    <div class="step-grid">
+
+      <div class="step">
+        <span>1</span>
+        <h3>Create</h3>
+        <p>Make amazing content.</p>
+      </div>
+
+      <div class="step">
+        <span>2</span>
+        <h3>Submit</h3>
+        <p>Send your content to BaloTV.</p>
+      </div>
+
+      <div class="step">
+        <span>3</span>
+        <h3>Review</h3>
+        <p>We review quality content.</p>
+      </div>
+
+      <div class="step">
+        <span>4</span>
+        <h3>Get Featured</h3>
+        <p>Your content goes live on BaloTV.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <h2>Don’t Just Watch The Change.</h2>
+
+    <h1>BE THE CHANGE.</h1>
+
+    <a href="#" class="btn">
+      Join BaloTV
+    </a>
+
+  </section>
+
+
+
+
+
+
+  <!-- MOBILE NAV -->
+
+<div class="mobile-nav">
+
+  <button
+    class="mobile-nav-btn active"
+    onclick="window.location.href='index.html'"
+  >
+    Home
+  </button>
+
+  <button
+    class="mobile-nav-btn"
+    onclick="window.location.href='library.html'"
+  >
+    Library
+  </button>
+
+  <button
+    class="mobile-nav-btn"
+    onclick="window.location.href='blog.html'"
+  >
+    Blog
+  </button>
+
+</div>
+
+
+  <script>
+
+    function toggleMenu(){
+    
+      document
+      .getElementById("dropdownMenu")
+      .classList
+      .toggle("active");
+    
+    }
+    
+    </script>
+
+
+
+<script>
+
+  if("serviceWorker" in navigator){
+  
+    navigator.serviceWorker
+    .register("/service-worker.js");
+  
+  }
+  
+  </script>
+
+
+</body>
+</html>
