@@ -108,7 +108,7 @@ async function loadPosts() {
 
     postsContainer.innerHTML += `
 
-      <div class="post">
+      <div class="feed-post">
 
         <h3>
           ${post.username}
@@ -130,6 +130,44 @@ postBtn.addEventListener(
   "click",
   createPost
 )
+
+
+
+// TOGGLE DROPDOWN MENU
+function toggleMenu(){
+
+  const menu =
+  document.getElementById("dropdownMenu")
+
+  menu.classList.toggle("show")
+
+}
+
+
+// CLOSE MENU WHEN CLICKING OUTSIDE
+document.addEventListener(
+  "click",
+  function(event){
+
+    const menu =
+    document.getElementById("dropdownMenu")
+
+    const menuBtn =
+    document.querySelector(".menu-btn")
+
+    if(
+      !menu.contains(event.target)
+      &&
+      !menuBtn.contains(event.target)
+    ){
+
+      menu.classList.remove("show")
+
+    }
+
+  }
+)
+
 
 
 // START
