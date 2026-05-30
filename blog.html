@@ -16,6 +16,11 @@ content="width=device-width, initial-scale=1.0"
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
+
+
+
+
+
 <!-- TOPBAR -->
 
 <header class="topbar">
@@ -44,14 +49,32 @@ content="width=device-width, initial-scale=1.0"
 
   <div class="header-actions">
 
-    <button class="header-btn login-btn">
+    <span id="userStatus">
+      Guest
+    </span>
+  
+    <button
+      id="loginBtn"
+      class="header-btn login-btn"
+    >
       Login
     </button>
-
-    <button class="header-btn register-btn">
+  
+    <button
+      id="registerBtn"
+      class="header-btn register-btn"
+    >
       Register
     </button>
-
+  
+    <button
+      id="logoutBtn"
+      class="header-btn"
+      style="display:none"
+    >
+      Logout
+    </button>
+  
   </div>
 
   <!-- DROPDOWN -->
@@ -72,22 +95,33 @@ content="width=device-width, initial-scale=1.0"
 
 <!-- CREATE POST -->
 
-<div class="create-post">
+<div class="header-actions">
 
-<input
-type="text"
-id="username"
-placeholder="Your name"
->
+  <span id="userStatus">
+    Guest
+  </span>
 
-<textarea
-id="content"
-placeholder="What's happening on BaloTV?"
-></textarea>
+  <button
+    id="loginBtn"
+    class="header-btn login-btn"
+  >
+    Login
+  </button>
 
-<button id="postBtn">
-Post
-</button>
+  <button
+    id="registerBtn"
+    class="header-btn register-btn"
+  >
+    Register
+  </button>
+
+  <button
+    id="logoutBtn"
+    class="header-btn"
+    style="display:none"
+  >
+    Logout
+  </button>
 
 </div>
 
