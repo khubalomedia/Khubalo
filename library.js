@@ -6,6 +6,131 @@
 
 const playlists = {
 
+
+  Luh_and_Uncle : [
+ 
+    {
+      videoId: "BEdOJoIg0Cc",
+      title: "Luh_and_Uncle-1"
+    },
+
+    {
+      videoId: "_qTvJvIlwhM",
+      title: "Luh_and_Uncle-2"
+    },
+
+    {
+      videoId: "7E5flpP3E8k",
+      title: "Luh_and_Uncle-3"
+    },
+
+    {
+     videoId: "7aSqEzc3Uv4",
+     title: "Luh_and_Uncle-4"
+   },
+
+   {
+     videoId: "kMIGsyaLa_g",
+     title: "Luh_and_Uncle-5"
+   },
+
+   {
+     videoId: "jz9CAgXbQMM",
+     title: "Luh_and_Uncle-6"
+   },
+
+   {
+     videoId: "cfU8RpdHnPg",
+     title: "Luh_and_Uncle-7"
+   },
+
+
+   {
+    videoId: "v5BMJARQ0kQ",
+    title: "Luh_and_Uncle-8"
+  },
+
+  ],
+
+
+  uDlamini_uYistar : [
+ 
+    {
+      videoId: "p687TlUyykE",
+      title: "uDlamini_uYistar-1"
+    },
+
+    {
+      videoId: "DyRb7tMasYQ",
+      title: "uDlamini_uYistar-2"
+    },
+
+    {
+      videoId: "jesnmyoYdD0",
+      title: "uDlamini_uYistar-3"
+    },
+
+    {
+     videoId: "lpupKFRGBVo",
+     title: "uDlamini_uYistar-4"
+   },
+
+   {
+     videoId: "RqLloOlX4GU",
+     title: "uDlamini_uYistar-5"
+   },
+
+   {
+     videoId: "JWXvdsU_9_0",
+     title: "uDlamini_uYistar-6"
+   },
+
+   {
+     videoId: "93KN-hpdOy8",
+     title: "uDlamini_uYistar-7"
+   },
+
+
+   {
+    videoId: "E6WbqPLWOAs",
+    title: "uDlamini_uYistar-8"
+  },
+
+  {
+    videoId: "9wosm7dJmKs",
+    title: "uDlamini_uYistar-9"
+  },
+
+  {
+    videoId: "BB3EKw1o0oE",
+    title: "uDlamini_uYistar-10"
+  },
+
+  {
+    videoId: "622x4QDIXvQ",
+    title: "uDlamini_uYistar-11"
+  },
+
+  {
+   videoId: "C2U7YEAWxFY",
+   title: "uDlamini_uYistar-12"
+ },
+
+ {
+   videoId: "F1T0_gMnDhU",
+   title: "uDlamini_uYistar-13"
+ },
+
+ {
+   videoId: "iSAXVNrXgLY",
+   title: "uDlamini_uYistar-14"
+ },
+
+ 
+
+  ],
+
+
    talk: [
  
      {
