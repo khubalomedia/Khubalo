@@ -46,7 +46,63 @@ const playlists = {
   {
   videoId:"2YKPm9HMbWs",
   title:"Drama Investigation"
-  }
+  },
+
+
+  {
+   videoId:"C6DTlkL5u2I",
+   title:"Nasty C is my brother from another mother full"
+   },
+   
+   {
+   videoId:"9jW2X9q4wg0",
+   title:"Ivo Suzee EXPOSED? The Dark Truth"
+   },
+   
+   {
+   videoId:"78KRwANWc4E",
+   title:"Fruity Friends Truth or Truth"
+   },
+   
+   {
+   videoId:"EQ5XdBCeEU0",
+   title:"African Casting EXPOSED"
+   },
+   
+   {
+   videoId:"yu00Z9IRpB8",
+   title:"Latest Trending Show"
+   },
+   
+   {
+   videoId:"72TOgTtNvE4",
+   title:"South African Viral Story"
+   },
+   
+   {
+   videoId:"ii4-VAtg2fg",
+   title:"Podcast Episode"
+   },
+   
+   {
+   videoId:"_ui2eYlhzNI",
+   title:"Drama Investigation"
+   },
+
+   {
+   videoId:"PVlnMl0jjyg",
+   title:"South African Viral Story"
+   },
+      
+   {
+   videoId:"cXxhysTLe8U",
+   title:"Podcast Episode"
+   },
+      
+   {
+   videoId:"o5Rnrl8XudM",
+   title:"Drama Investigation"
+   }
   
   ],
   
