@@ -3,7 +3,7 @@ const SUPABASE_URL =
 "https://lnuznyfumxjrfxtxozhg.supabase.co"
 
 const SUPABASE_KEY =
-"YOUR_SUPABASE_ANON_KEY"
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxudXpueWZ1bXhqcmZ4dHhvemhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MDU5MjgsImV4cCI6MjA5NTM4MTkyOH0.WxIT5uWCm-Y0UXiWvwTEzU_HCnYTxJoEt9SJFfUhIfo"
 
 const supabaseClient =
 supabase.createClient(
