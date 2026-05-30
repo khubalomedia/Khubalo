@@ -16,10 +16,9 @@ content="width=device-width, initial-scale=1.0"
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
+</head>
 
-
-
-
+<body>
 
 <!-- TOPBAR -->
 
@@ -38,101 +37,111 @@ content="width=device-width, initial-scale=1.0"
     <!-- LOGO -->
 
     <a href="index.html" class="logo">
-      <img src="images/balotv-logo.png" alt="BaloTV">
+      <img
+        src="images/balotv-logo.png"
+        alt="BaloTV"
+      >
     </a>
 
   </div>
 
-
-
-  <!-- BUTTONS -->
+  <!-- AUTH BUTTONS -->
 
   <div class="header-actions">
 
-    <span id="userLabel">Guest</span>
-  
+    <span
+      id="userLabel"
+      style="
+      color:white;
+      margin-right:10px;
+      "
+    >
+      Guest
+    </span>
+
     <button
       id="loginBtn"
       class="header-btn login-btn"
     >
       Login
     </button>
-  
+
     <button
       id="registerBtn"
       class="header-btn register-btn"
     >
       Register
     </button>
-  
+
     <button
       id="logoutBtn"
       class="header-btn"
-      style="display:none"
+      style="display:none;"
     >
       Logout
     </button>
-  
+
   </div>
+
   <!-- DROPDOWN -->
 
-  <div class="dropdown-menu" id="dropdownMenu">
+  <div
+    class="dropdown-menu"
+    id="dropdownMenu"
+  >
 
-    <a href="index.html">Home</a>
+    <a href="index.html">
+      Home
+    </a>
 
-    <a href="about.html">Submit Content</a>
+    <a href="about.html">
+      Submit Content
+    </a>
 
-    <a href="terms.html">Terms</a>
+    <a href="terms.html">
+      Terms
+    </a>
 
   </div>
 
 </header>
 
+
+<!-- MAIN CONTENT -->
+
 <main class="feed-container">
 
-<!-- CREATE POST -->
+  <!-- CREATE POST -->
 
-<div class="header-actions">
+  <div class="create-post">
 
-  <span id="userStatus">
-    Guest
-  </span>
+    <textarea
+      id="content"
+      placeholder="What's happening on BaloTV?"
+    ></textarea>
 
-  <button
-    id="loginBtn"
-    class="header-btn login-btn"
-  >
-    Login
-  </button>
+    <button id="postBtn">
+      Post
+    </button>
 
-  <button
-    id="registerBtn"
-    class="header-btn register-btn"
-  >
-    Register
-  </button>
+  </div>
 
-  <button
-    id="logoutBtn"
-    class="header-btn"
-    style="display:none"
-  >
-    Logout
-  </button>
+  <!-- POSTS -->
 
-</div>
+  <div id="posts">
 
-<!-- POSTS -->
+    <p>
+      Loading feed...
+    </p>
 
-<div id="posts"></div>
+  </div>
 
 </main>
 
 
+<!-- BLOG SCRIPT -->
+
 <script src="blog.js"></script>
-
-</body>
-
 
 
 <!-- MOBILE NAV -->
@@ -141,28 +150,33 @@ content="width=device-width, initial-scale=1.0"
 
   <button
     class="mobile-nav-btn active"
-    onclick="window.location.href='index.html'"
+    onclick="
+      window.location.href='index.html'
+    "
   >
     Home
   </button>
 
   <button
     class="mobile-nav-btn"
-    onclick="window.location.href='library.html'"
+    onclick="
+      window.location.href='library.html'
+    "
   >
     Library
   </button>
 
   <button
-  class="mobile-nav-btn"
-  onclick="window.location.href='blog.html'"
->
-  Blog
-</button>
+    class="mobile-nav-btn"
+    onclick="
+      window.location.href='blog.html'
+    "
+  >
+    Blog
+  </button>
 
 </div>
 
-
-
+</body>
 
 </html>
